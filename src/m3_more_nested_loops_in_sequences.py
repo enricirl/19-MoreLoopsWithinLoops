@@ -4,8 +4,8 @@ in the context of SEQUENCES OF SUB-SEQUENCES.
 
 Authors: David Mutchler, Vibha Alangar, Matt Boutell, Dave Fisher,
          Mark Hays, Amanda Stouder, Aaron Wilkin, their colleagues,
-         and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         and Rachael Enrici.
+"""  # DO: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
 def main():
@@ -18,7 +18,7 @@ def main():
 def run_test_largest_number():
     """ Tests the    largest_number    function. """
     # -------------------------------------------------------------------------
-    # TODO: 2. Implement this TEST function.
+    # DO: 2. Implement this TEST function.
     #   It TESTS the  largest_number  function defined below.
     #   Include at least ** 1 ** ADDITIONAL test beyond those we wrote.
     # -------------------------------------------------------------------------
@@ -44,9 +44,12 @@ def run_test_largest_number():
     answer = largest_number(([], [], []))
     print('Expected and actual are:', expected, answer)
 
-    # TODO 2 (continued): Add your ADDITIONAL test(s) here:
+    # DO 2 (continued): Add your ADDITIONAL test(s) here:
 
-
+    # Test 4:
+    expected = 23
+    answer = largest_number(([4, 6, 3, 5, 23], [4, 5, 4, 2, -1, 4], []))
+    print('Expected and actual are:', expected, answer)
 def largest_number(seq_seq):
     """
     Returns the largest number in the subsequences of the given
@@ -73,15 +76,27 @@ def largest_number(seq_seq):
     where each subsequence contains only numbers.
     """
     # -------------------------------------------------------------------------
-    # TODO: 3. Implement and test this function.
+    # DO: 3. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     # -------------------------------------------------------------------------
+
+    largest = None
+    for k in seq_seq:
+        if k != []:
+            largest = k[0]
+            break
+    if largest != None:
+        for k in seq_seq:
+            for item in k:
+                if item > largest:
+                    largest = item
+    return largest
 
 
 def run_test_largest_negative_number():
     """ Tests the    largest_negative_number    function. """
     # -------------------------------------------------------------------------
-    # TODO: 4. Implement this TEST function.
+    # DO: 4. Implement this TEST function.
     #   It TESTS the  largest_negative_number  function defined below.
     #
     #   Include enough tests to give you confidence that your solution
@@ -92,37 +107,62 @@ def run_test_largest_negative_number():
     print('Testing the   LARGEST_NEGATIVE_NUMBER   function:')
     print('-------------------------------------------------')
 
+    print()
+    print('-------------------------------------------------')
+    print('Testing the   LARGEST_NEGATIVE_NUMBER   function:')
+    print('-------------------------------------------------')
+
+    # Test 1:
+    expected = -2.6
+    actual = largest_negative_number([[30, -5, 8, -20], [100, -2.6, 88, -40, -5], [400, 500]])
+    print('Expected and actual are:', expected, actual)
+
+    # Test 2:
+    expected = None
+    actual = largest_negative_number([[200, 2, 20], [500, 600]])
+    print('Expected and actual are:', expected, actual)
+
 
 def largest_negative_number(seq_seq):
     """
     Returns the largest NEGATIVE number in the given sequence of
     sequences of numbers.  Returns None if there are no negative numbers
     in the sequence of sequences.
-
     For example, if the given argument is:
         [(30, -5, 8, -20),
          (100, -2.6, 88, -40, -5),
          (400, 500)
         ]
     then this function returns -2.6.
-
     As another example, if the given argument is:
       [(200, 2, 20), (500, 400)]
     then this function returns None.
-
     Preconditions:
       :type seq_seq: (list, tuple)
     and the given argument is a sequence of sequences,
     where each subsequence contains only numbers.
     """
     # -------------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DO: 5. Implement and test this function.
     #   Note that you should write its TEST function first (above).
     #
     # CHALLENGE: Try to solve this problem with no additional sequences
     #   being constructed (so the SPACE allowed is limited to the
     #   give sequence of sequences plus any non-list variables you want).
     # -------------------------------------------------------------------------
+    largest = None
+    for k in seq_seq:
+        if k != []:
+            for n in k:
+                if n < 0:
+                    largest = n
+                    break
+    if largest != None:
+        for k in seq_seq:
+            for n in k:
+                if n > largest and n < 0:
+                    largest = n
+    return largest
 
 
 def run_test_first_is_elsewhere_too():
@@ -356,7 +396,7 @@ def first_is_elsewhere_too(seq_seq):
     and the given argument is a sequence of sequences.
     """
     # -------------------------------------------------------------------------
-    # TODO: 6. Implement and test this function.
+    # DO: 6. Implement and test this function.
     #          Some tests are already written for you (above).
     #
     # IMPLEMENTATION RESTRICTION:
@@ -372,6 +412,17 @@ def first_is_elsewhere_too(seq_seq):
     #   practice at loops within loops (within loops within ...)
     # -------------------------------------------------------------------------
 
+    first_sequence = seq_seq[0]
+    if first_sequence == [] or first_sequence == () or first_sequence == '':
+        return False
+    else:
+        for k in first_sequence:
+            number = k
+            for n in range(1, len(seq_seq)):
+                for i in seq_seq[n]:
+                    if i == number:
+                        return True
+        return False
 
 # -----------------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
